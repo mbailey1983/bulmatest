@@ -8,7 +8,7 @@ client.callback()
 
 // When your application wants to access the protected data
 let f = new Fetcher(client)
-let url = 'https://app.asana.com/api/1.0/users/me'
+let url = 'https://app.asana.com/-/oauth_authorize?response_type=token&client_id=875279773738719&redirect_uri=https%3A%2F%2Frockstarcreativestudio.github.io%2Fbulmatest%2Fsuccess.html&state=<STATE_PARAM>'
 f.fetch(url, {})
 	.then((data) => {
 		return data.json()
