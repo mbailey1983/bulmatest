@@ -149,36 +149,5 @@
 		</section>
 		</div><!--app-->
 		<!-- /.columns -->
-		<script type="text/javascript">
-            var app = new Vue({
-                el: '#app',
-                data: {
-                    items: []
-                },
-                mounted: function(){
-                   this.loadItems(); 
-                },
-                methods: {
-                    loadItems: function(){
-                        
-                        // Init variables
-                        var self = this
-                        var app_id = "appZya5cUwwaAadjA";
-                        var app_key = "key0FnxhV23Jml8cv";
-                        this.items = []
-axios.get(
-                            "https://api.airtable.com/v0/"+app_id+"Master%20Chore%20List",
-                            { 
-                                headers: { Authorization: "Bearer "+app_key } 
-                            }
-                        ).then(function(response){
-                            self.items = response.data.records
-                        }).catch(function(error){
-                            console.log(error)
-                        })
-                    }
-                }
-            })
-        </script>
 	</body>
 </html>
