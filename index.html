@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Bailey Dashboard</title>
+		<link rel="stylesheet" 
+        href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.0/css/bulma.min.css">
+		<script defer src="https://use.fontawesome.com/releases/v5.4.1/js/all.js"></script>
+		<script src="https://github.com/Asana/node-asana/releases/download/v0.16.6/asana-min.js"></script>
+		<script type='text/javascript' src='_javascript/bundled.js'></script>
+	    <!-- <link rel="stylesheet" href="styles/debug.css"> -->
+		<style>
+.center {
+ display: flex;
+ justify-content: center;
+ align-items: center;
+}
+		</style>
+	</head>
+	<body>
+		<!-- .hero -->
+		<section class="hero is-dark is-bold">
+	        <div class="hero-body">
+	        	<div class="container">
+		            <h1 class="has-text-light center title is-spaced">
+					Bailey Dashboard
+					</h1>
+					<h2 class="sub-title">
+					</h2>
+            	</div>
+						<nav class="breadcrumb is-centered" aria-label="breadcrumbs">
+								  <ul>
+									<li class="is-active"><a href="#">Home</a></li>
+									<li><a href="#">Timer</a></li>
+									<li><a href="#">Calendar</a></li>
+								  </ul>
+						</nav>
+	        </div>
+        </section>
+		<!-- /.hero -->
+		
+		<!-- .columns -->
+		<div id="app">
+		<section class="section has-background-black">
+			<div class="container">
+				<div class="columns">
+					<div class="column">
+						<article class="media notification is-danger">
+								<figure class="media-left">
+									<span class="icon">
+										<i class="fas fa-2x fa-exclamation-triangle"></i>
+									</span>
+								</figure>
+								<div class="media-content">
+									<div class="content">
+										<h1 class="title">
+											OVERDUE
+										</h1>
+										<p class="is-size-5">
+											             <ul>
+															
+														</ul> 
+											</p>
+									</div>
+								</div>
+						</article>
+					</div>
+					<div class="column">
+						<article class="media notification is-success has-text-grey-darker">
+								<figure class="media-left">
+									<span class="icon">
+										<i class="fas fa-2x fa-hat-wizard"></i>
+									</span>
+								</figure>
+									<div class="media-content">
+										<h1 class="title">
+											My Tasks For Today
+										</h1>
+										<p class"is-size-5">
+											A box to list my upcoming tasks pulled from Airtable/Zapier/Calendar
+										</p>
+									</div>
+								</div>
+						</article>
+					<div class="column">
+						<article class="media notification is-success has-text-grey-darker">
+							<figure class="media-left">
+								<span class="icon">
+									<i class="fas fa-2x fa-dragon"></i>
+								</span>
+							</figure>
+								<div class="media-content">
+									<h1 class="title">
+										Gareth's Tasks For Today
+									</h1>
+									<p class"is-size-5">
+										A box to list Gareth's upcoming tasks pulled from Airtable/Zapier/Calendar
+									</p>
+								</div>
+							</div>
+					</article>
+				</div>
+		</section>
+		</div><!--app-->
+		<!-- /.columns -->
+		<script type="text/javascript">
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    items: []
+                },
+                mounted: function(){
+                   this.loadItems(); 
+                },
+                methods: {
+                    loadItems: function(){
+                        
+                        // Init variables
+                        var self = this
+                        var app_id = "appZya5cUwwaAadjA";
+                        var app_key = "key0FnxhV23Jml8cv";
+                        this.items = []
+axios.get(
+                            "https://api.airtable.com/v0/"+app_id+"Master%20Chore%20List",
+                            { 
+                                headers: { Authorization: "Bearer "+app_key } 
+                            }
+                        ).then(function(response){
+                            self.items = response.data.records
+                        }).catch(function(error){
+                            console.log(error)
+                        })
+                    }
+                }
+            })
+        </script>
+	</body>
+</html>
