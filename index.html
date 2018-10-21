@@ -8,7 +8,7 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.0/css/bulma.min.css">
 		<script defer src="https://use.fontawesome.com/releases/v5.4.1/js/all.js"></script>
 		<script src="https://github.com/Asana/node-asana/releases/download/v0.16.6/asana-min.js"></script>
-		<script type='text/javascript' src='_javascript/bundled.js'></script>
+		<script type='text/javascript' src='_javascript/client.js'></script>
 	    <!-- <link rel="stylesheet" href="styles/debug.css"> -->
 		<style>
 .center {
@@ -78,7 +78,52 @@
 											My Tasks For Today
 										</h1>
 										<p class"is-size-5">
-											A box to list my upcoming tasks pulled from Airtable/Zapier/Calendar
+											<script>
+											const Asana = require('asana');
+											const util = require('util');
+
+											// Using a PAT for basic authentication. This is reasonable to get
+											// started with, but Oauth is more secure and provides more features.
+
+											const credentials = {
+											  // access_token: 'my_access_token',
+											  refresh_token: 'my_refresh_token'
+											};
+											client.useOauth({
+											  credentials: credentials
+											});
+											client.users.me()
+											  .then(user => {
+												const userId = user.id;
+												// The user's "default" workspace is the first one in the list, though
+												// any user can have multiple workspaces so you can't always assume this
+												// is the one you want to work with.
+												const workspaceId = user.workspaces[0].id;
+												return client.tasks.findAll({
+												  assignee: userId,
+												  workspace: workspaceId,
+												  completed_since: 'now',
+												  opt_fields: 'id,name,completed'
+												});
+											  })
+											  .then(response => {
+												// There may be more pages of data, we could stream or return a promise
+												// to request those here - for now, let's just return the first page
+												// of items.
+												return response.data;
+											  })
+											  .filter(task => {
+												return task.assignee_status === 'today' ||
+											 })
+											  .then(list => {
+												console.log(util.inspect(list, {
+												  colors: true,
+												  depth: null
+												}));
+											  })
+											  .catch(e => {
+												console.log(e);
+											  });
 										</p>
 									</div>
 								</div>
