@@ -1,0 +1,10 @@
+// 1. Import the initial variables
+@import "../sass/utilities/initial-variables";
+@import "../sass/utilities/functions";
+
+// 2. Set your own initial variables
+// Update blue
+$blue: #2b2ed2;
+// Add pink and its invert
+$orange: #F4A730;
+$orange-invert: #fff;

@@ -29,5 +29,18 @@
     "js-build": "babel _javascript --out-dir lib",
     "js-watch": "npm run js-build -- --watch",
     "start": "npm-run-all --parallel css-watch js-watch"
-  }
+	"scss": "node-sass --watch _sass -o css"
+  },
+  "main": "client.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rockstarcreativestudio/bulmatest.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rockstarcreativestudio/bulmatest/issues"
+  },
+  "homepage": "https://github.com/rockstarcreativestudio/bulmatest#readme"
 }
